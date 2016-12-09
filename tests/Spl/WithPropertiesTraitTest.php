@@ -16,7 +16,7 @@ class WithPropertiesTraitTest extends \PHPUnit_Framework_TestCase
     /**
      * @var array
      */
-    private static $defaults = [
+    protected static $defaults = [
         'propMixed'  => null,
         'propInt'    => 0,
         'propString' => '',
@@ -49,20 +49,30 @@ class WithPropertiesTraitTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param array|null $properties
+     *
+     * @return Fixtures\WithProperties
+     */
+    protected function createClass(array $properties = null)
+    {
+        return new Fixtures\WithProperties($properties);
+    }
+
+    /**
      * @covers       WithPropertiesTrait::__construct
      * @dataProvider providerConstruct
      *
      * @param array|\Exception $expected
      * @param array|null       $properties
      */
-    public function testConstruct($expected, $properties)
+    public function testConstruct($expected, array $properties = null)
     {
         if ($expected instanceof \Exception) {
             $this->expectException(get_class($expected));
             $this->expectExceptionMessage($expected->getMessage());
         }
 
-        $current = new Fixtures\WithProperties($properties);
+        $current = $this->createClass($properties);
 
         $this->assertSame($expected['propMixed'], $current->propMixed);
         $this->assertSame($expected['propInt'], $current->propInt);
@@ -78,7 +88,7 @@ class WithPropertiesTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicMethods()
     {
-        $current = new Fixtures\WithProperties();
+        $current = $this->createClass();
         $this->assertFalse(isset($current->propMixed));
         $this->assertFalse(isset($current->propInt));
         $this->assertFalse(isset($current->propString));
