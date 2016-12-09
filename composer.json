@@ -1,0 +1,23 @@
+{
+  "name": "phpio/spl",
+  "description": "php framework",
+  "keywords": ["php", "spl"],
+  "homepage": "https://github.com/phpio/spl",
+  "license": "MIT",
+  "authors": [
+    {"name": "Demjan Kaluzki", "email": "kaluzkidemjan@gmail.com"}
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=5.5.0"
+  },
+  "require-dev": {
+    "phpunit/PHPUnit": "~3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "phpio\\": ["src", "tests"]
+    }
+  }
+}
